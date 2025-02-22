@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 
 export default function Header() {
@@ -18,7 +18,7 @@ export default function Header() {
         <Link href="/">My Tech Blog</Link>
       </div>
 
-      <nav className="flex space-x-4">
+      <nav className="flex items-center space-x-6">
         <Link href="/about" className="hover:text-accent transition">
           About
         </Link>
