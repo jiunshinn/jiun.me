@@ -14,19 +14,16 @@ export default function Header() {
         shadow
       "
     >
-      <div className="text-xl font-bold">
-        <Link href="/">My Tech Blog</Link>
-      </div>
-
       <nav className="flex items-center space-x-6">
-        <Link href="/about" className="hover:text-accent transition">
-          About
+        <Link href="/" className="hover:text-accent transition">
+          Home
         </Link>
         <Link href="/blog" className="hover:text-accent transition">
           Blog
         </Link>
-        <ThemeToggle />
       </nav>
+
+      <ThemeToggle />
     </header>
   );
 }
