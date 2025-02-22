@@ -16,11 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
+    <html lang="en" suppressHydrationWarning className="h-full">
+      <body className="h-full flex flex-col min-h-screen bg-lightBg text-lightText dark:bg-darkBg dark:text-darkText">
         <Providers>
           <Header />
-          {children}
+          <main className="flex-grow">{children}</main>
           <Footer />
         </Providers>
       </body>
