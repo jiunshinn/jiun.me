@@ -14,10 +14,10 @@ const config: Config = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        lightBg: "#ffffff",
-        lightText: "#000000",
-        darkBg: "#181818",
-        darkText: "#ffffff",
+        lightBg: "#f9fafb",
+        lightText: "#1f2937",
+        darkBg: "#1f2937",
+        darkText: "#f9fafb",
         accent: {
           DEFAULT: "#3b82f6",
           hover: "#2563eb",
