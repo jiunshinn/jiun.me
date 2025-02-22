@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import React from "react";
 import Providers from "@/app/provider";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "My Tech Blog",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
