@@ -45,7 +45,15 @@ export default async function BlogPost({
         {post.date} | {post.category}
       </p>
       <div className="flex">
-        <div className="prose dark:prose-invert flex-1 max-w-none">
+        <div
+          className="prose dark:prose-invert prose-lg flex-1 max-w-none
+          prose-headings:font-bold
+          prose-h1:text-3xl
+          prose-h2:text-2xl
+          prose-h3:text-xl
+          prose-p:text-gray-700 dark:prose-p:text-gray-300
+          prose-a:text-blue-600 hover:prose-a:text-blue-500"
+        >
           <MDXRemote
             source={post.content}
             options={{

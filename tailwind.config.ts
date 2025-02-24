@@ -10,14 +10,27 @@ const config: Config = {
   ],
   darkMode: "class",
   theme: {
-    typography: () => ({
+    typography: {
       DEFAULT: {
         css: {
           "code::before": { content: "none" },
           "code::after": { content: "none" },
-          code: {
-            fontWeight: "500",
-            fontSize: "0.875em",
+          "blockquote p:first-of-type::before": { content: "none" },
+          "blockquote p:last-of-type::after": { content: "none" },
+          h1: {
+            fontSize: "2.25rem",
+            marginTop: "2.5rem",
+            marginBottom: "1.5rem",
+          },
+          h2: {
+            fontSize: "1.875rem",
+            marginTop: "2.25rem",
+            marginBottom: "1.25rem",
+          },
+          h3: {
+            fontSize: "1.5rem",
+            marginTop: "2rem",
+            marginBottom: "1rem",
           },
           pre: {
             backgroundColor: "transparent",
@@ -31,7 +44,7 @@ const config: Config = {
           },
         },
       },
-    }),
+    },
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
