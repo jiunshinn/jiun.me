@@ -1,14 +1,18 @@
 import { getAllPosts, getAllCategories } from "@/lib/posts";
 import Link from "next/link";
 
-export default async function BlogPage({
-  searchParams,
-}: {
-  searchParams: { category?: string };
-}) {
-  const posts = getAllPosts();
-  const categories = getAllCategories();
-  const selectedCategory = searchParams.category;
+type Props = {
+  searchParams: Promise<{ category?: string }>;
+};
+
+export default async function BlogPage({ searchParams }: Props) {
+  const [posts, categories, resolvedParams] = await Promise.all([
+    getAllPosts(),
+    getAllCategories(),
+    searchParams,
+  ]);
+
+  const selectedCategory = resolvedParams.category;
 
   const filteredPosts = selectedCategory
     ? posts.filter((post) => post.category === selectedCategory)

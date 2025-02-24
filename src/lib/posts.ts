@@ -12,29 +12,24 @@ export interface PostData {
   content: string;
 }
 
-export function getAllPosts(): PostData[] {
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.mdx$/, "");
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+export async function getAllPosts(): Promise<PostData[]> {
+  const files = await fs.promises.readdir(postsDirectory);
+  const posts = await Promise.all(
+    files
+      .filter((file) => file.endsWith(".mdx"))
+      .map(async (file) => {
+        const slug = file.replace(/\.mdx$/, "");
+        const post = await getPostBySlug(slug);
+        return post;
+      })
+  );
 
-    return {
-      slug,
-      title: data.title,
-      date: data.date,
-      category: data.category,
-      content,
-    };
-  });
-
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+  return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
 }
 
-export function getPostBySlug(slug: string): PostData {
+export async function getPostBySlug(slug: string): Promise<PostData> {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = await fs.promises.readFile(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
   return {
@@ -46,8 +41,8 @@ export function getPostBySlug(slug: string): PostData {
   };
 }
 
-export function getAllCategories(): string[] {
-  const posts = getAllPosts();
+export async function getAllCategories(): Promise<string[]> {
+  const posts = await getAllPosts();
   const categories = new Set(posts.map((post) => post.category));
   return Array.from(categories);
 }

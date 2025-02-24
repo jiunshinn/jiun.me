@@ -15,19 +15,20 @@ type CodeNode = {
   };
 };
 
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
 export async function generateStaticParams() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPost({ params }: Props) {
+  const resolvedParams = await params;
+  const post = await getPostBySlug(resolvedParams.slug);
 
   const headings = post.content
     .split("\n")
