@@ -4,11 +4,19 @@ import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
+    "./src/**/*.{ts,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
   theme: {
+    typography: {
+      DEFAULT: {
+        css: {
+          maxWidth: "85ch",
+        },
+      },
+    },
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
