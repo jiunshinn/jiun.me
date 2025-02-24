@@ -55,6 +55,9 @@ export default async function BlogPage({
               <p className="text-gray-600 mt-1">
                 {post.date} | {post.category}
               </p>
+              <div className="prose text-sm mt-2">
+                {post.content.slice(0, 100)}...
+              </div>
             </li>
           ))}
         </ul>

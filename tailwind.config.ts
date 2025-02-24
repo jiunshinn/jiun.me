@@ -10,13 +10,28 @@ const config: Config = {
   ],
   darkMode: "class",
   theme: {
-    typography: {
+    typography: () => ({
       DEFAULT: {
         css: {
-          maxWidth: "85ch",
+          "code::before": { content: "none" },
+          "code::after": { content: "none" },
+          code: {
+            fontWeight: "500",
+            fontSize: "0.875em",
+          },
+          pre: {
+            backgroundColor: "transparent",
+            padding: "0",
+            lineHeight: "inherit",
+          },
+          "pre code": {
+            fontSize: "inherit",
+            lineHeight: "inherit",
+            fontWeight: "inherit",
+          },
         },
       },
-    },
+    }),
     extend: {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],

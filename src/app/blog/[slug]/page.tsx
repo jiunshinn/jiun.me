@@ -1,6 +1,19 @@
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Toc from "@/components/toc";
+import rehypePrettyCode from "rehype-pretty-code";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+
+type CodeNode = {
+  children: Array<{
+    type: string;
+    value: string;
+  }>;
+  properties: {
+    className: string[];
+  };
+};
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -32,8 +45,31 @@ export default async function BlogPost({
         {post.date} | {post.category}
       </p>
       <div className="flex">
-        <div className="prose flex-1">
-          <MDXRemote source={post.content} />
+        <div className="prose dark:prose-invert flex-1 max-w-none">
+          <MDXRemote
+            source={post.content}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkBreaks],
+                rehypePlugins: [
+                  [
+                    rehypePrettyCode,
+                    {
+                      theme: "one-dark-pro",
+                      onVisitLine(node: CodeNode) {
+                        if (node.children.length === 0) {
+                          node.children = [{ type: "text", value: " " }];
+                        }
+                      },
+                      onVisitHighlightedLine(node: CodeNode) {
+                        node.properties.className.push("highlighted");
+                      },
+                    },
+                  ],
+                ],
+              },
+            }}
+          />
         </div>
         <div className="ml-4 w-64">
           <Toc headings={headings} />

@@ -11,3 +11,52 @@ category: "ios"
 ## 두 번째 헤딩
 
 내용이 이어집니다.
+
+## 코드 예시
+
+```ts
+/// how to load blog posts
+const posts = getAllPosts();
+const categories = getAllCategories();
+const selectedCategory = searchParams.category;
+
+const filteredPosts = selectedCategory
+  ? posts.filter((post) => post.category === selectedCategory)
+  : posts;
+```
+
+### 4. `src/app/blog/[slug]/page.tsx` 확인
+
+기존에 작성한 개별 포스트 페이지에서 `<MDXRemote>`를 사용 중이라면, 추가 설정 없이 코드 하이라이팅이 적용됩니다. 현재 코드를 다시 확인해 볼게요:
+
+```typescript
+import { getPostBySlug, getAllPosts } from "@/lib/posts";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = getPostBySlug(params.slug);
+
+  return (
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      <p className="text-gray-500 mb-2">
+        {post.date} | {post.category}
+      </p>
+      <div className="prose">
+        <MDXRemote source={post.content} />
+      </div>
+    </div>
+  );
+}
+```
