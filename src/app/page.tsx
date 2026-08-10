@@ -3,12 +3,14 @@ import Introduction from "@/components/introduction";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 bg-white text-black dark:bg-gray-900 dark:text-white">
+    <main className="mx-auto max-w-2xl px-6 py-12">
       {/* Hero Section */}
-      <section className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4">Hi, I&apos;m Jiun!</h1>
-        <p className="text-lg text-gray-700 dark:text-gray-300">
-          Software Engineer
+      <section className="mb-16">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Hi, I&apos;m Jiun!
+        </h1>
+        <p className="mt-2 text-neutral-500 dark:text-neutral-400">
+          Frontend Engineer · React Native &amp; React
         </p>
       </section>
 
@@ -18,21 +20,41 @@ export default function HomePage() {
       {/* Career Timeline */}
       <CareerTimeline />
 
-      {/* 기타 섹션 */}
-      <section className="mt-12 text-center">
-        <h2 className="text-xl font-semibold mb-4">Contact</h2>
-        <p className="text-gray-600 dark:text-gray-400">
-          Email: john@example.com
-        </p>
-        <p className="text-gray-600 dark:text-gray-400">
-          GitHub:{" "}
-          <a
-            href="https://github.com/username"
-            className="text-blue-500 dark:text-blue-400"
-          >
-            github.com/username
-          </a>
-        </p>
+      {/* Contact */}
+      <section className="mt-16">
+        <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+          Contact
+        </h2>
+        <ul className="space-y-1 text-neutral-700 dark:text-neutral-300">
+          <li>
+            <a
+              href="mailto:jiun.dev@gmail.com"
+              className="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-current transition"
+            >
+              jiun.dev@gmail.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/jiunshinn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-current transition"
+            >
+              github.com/jiunshinn
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/jiunshin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4 decoration-neutral-300 dark:decoration-neutral-700 hover:decoration-current transition"
+            >
+              linkedin.com/in/jiunshin
+            </a>
+          </li>
+        </ul>
       </section>
     </main>
   );
