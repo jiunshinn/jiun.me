@@ -5,16 +5,6 @@ import rehypePrettyCode from "rehype-pretty-code";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 
-type CodeNode = {
-  children: Array<{
-    type: string;
-    value: string;
-  }>;
-  properties: {
-    className: string[];
-  };
-};
-
 type Props = {
   params: Promise<{ slug: string }>;
 };
@@ -40,20 +30,21 @@ export default async function BlogPost({ params }: Props) {
     });
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-      <p className="text-gray-500 mb-2">
-        {post.date} | {post.category}
+    <div className="relative mx-auto max-w-2xl px-6 py-12">
+      <h1 className="text-2xl font-semibold tracking-tight">{post.title}</h1>
+      <p className="mt-2 mb-10 text-sm text-neutral-500 dark:text-neutral-400">
+        {post.date} · {post.category}
       </p>
       <div className="flex">
         <div
-          className="prose dark:prose-invert prose-lg flex-1 max-w-none
-          prose-headings:font-bold
-          prose-h1:text-3xl
-          prose-h2:text-2xl
-          prose-h3:text-xl
-          prose-p:text-gray-700 dark:prose-p:text-gray-300
-          prose-a:text-blue-600 hover:prose-a:text-blue-500"
+          className="prose prose-neutral dark:prose-invert flex-1 max-w-none
+          prose-headings:font-semibold prose-headings:tracking-tight
+          prose-h1:text-2xl
+          prose-h2:text-xl
+          prose-h3:text-lg
+          prose-a:text-current prose-a:underline prose-a:underline-offset-4
+          prose-a:decoration-neutral-300 dark:prose-a:decoration-neutral-700
+          hover:prose-a:decoration-current"
         >
           <MDXRemote
             source={post.content}
@@ -61,26 +52,14 @@ export default async function BlogPost({ params }: Props) {
               mdxOptions: {
                 remarkPlugins: [remarkGfm, remarkBreaks],
                 rehypePlugins: [
-                  [
-                    rehypePrettyCode,
-                    {
-                      theme: "one-dark-pro",
-                      onVisitLine(node: CodeNode) {
-                        if (node.children.length === 0) {
-                          node.children = [{ type: "text", value: " " }];
-                        }
-                      },
-                      onVisitHighlightedLine(node: CodeNode) {
-                        node.properties.className.push("highlighted");
-                      },
-                    },
-                  ],
+                  // v0.14부터 빈 줄 처리와 data-line/data-highlighted-line 마킹이 기본 동작이라 커스텀 훅 불필요
+                  [rehypePrettyCode, { theme: "one-dark-pro" }],
                 ],
               },
             }}
           />
         </div>
-        <div className="ml-4 w-64">
+        <div className="hidden xl:block fixed top-32 left-[calc(50%+22rem)] w-56">
           <Toc headings={headings} />
         </div>
       </div>

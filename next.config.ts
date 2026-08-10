@@ -1,15 +1,14 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
-import remarkGfm from "remark-gfm";
-import rehypePrettyCode from "rehype-pretty-code";
 
 const mdxConfig = createMDX({
   extension: /\.mdx$/,
   options: {
-    remarkPlugins: [remarkGfm], // GFM 지원
+    // Turbopack에서는 플러그인을 문자열로 지정해야 한다 (함수는 직렬화 불가)
+    remarkPlugins: ["remark-gfm"], // GFM 지원
     rehypePlugins: [
       [
-        rehypePrettyCode,
+        "rehype-pretty-code",
         {
           theme: {
             dark: "one-dark-pro",
@@ -30,9 +29,6 @@ const mdxConfig = createMDX({
 const nextConfig: NextConfig = {
   /* config options here */
   pageExtensions: ["ts", "tsx", "md", "mdx"],
-  experimental: {
-    mdxRs: true, // Rust based MDX compiler
-  },
 };
 
 export default mdxConfig(nextConfig);

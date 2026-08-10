@@ -9,6 +9,7 @@ export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- next-themes 하이드레이션 안전 마운트 패턴
     setMounted(true);
   }, []);
 
@@ -25,18 +26,16 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={handleToggle}
+      aria-label="Toggle theme"
       className="
         flex items-center justify-center
-        w-10 h-10
-        border rounded-md
-        bg-lightBg text-lightText
-        dark:bg-darkBg dark:text-darkText
-        hover:bg-accent hover:text-white
-        dark:hover:text-lightBg
-        transition
+        w-8 h-8
+        text-neutral-500 hover:text-neutral-900
+        dark:text-neutral-400 dark:hover:text-neutral-100
+        transition-colors
       "
     >
-      {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+      {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
     </button>
   );
 }

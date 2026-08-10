@@ -1,18 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@config '../../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 @layer base {
   body {
-    @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+    @apply bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
   }
 }
 
 /* 코드 블록 스타일링 */
 .prose pre {
   @apply p-6 rounded-lg my-6;
-  @apply bg-[#282c34] dark:bg-[#282c34]; /* One Dark Pro 배경색 */
-  @apply border border-gray-700;
+  @apply bg-neutral-900;
+  @apply border border-neutral-800;
   @apply overflow-x-auto;
 }
 
@@ -23,49 +41,28 @@
   font-family: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
 }
 
-.prose pre > code > .line {
+/* rehype-pretty-code v0.14부터 .line/.highlighted 클래스 대신 data 속성을 사용 */
+.prose pre > code > [data-line] {
   @apply px-6 border-l-2 border-l-transparent;
   @apply transition-colors duration-200;
-  @apply hover:bg-white/[0.05];
+  @apply hover:bg-white/5;
 }
 
-.prose pre > code > .line.highlighted {
-  @apply bg-blue-500/10;
-  @apply border-l-blue-500;
+.prose pre > code > [data-highlighted-line] {
+  @apply bg-white/10;
+  @apply border-l-neutral-400;
 }
 
-.prose .word--highlighted {
-  @apply bg-yellow-100/50 dark:bg-yellow-900/30;
-  @apply rounded px-1;
+.prose [data-highlighted-chars] {
+  @apply bg-white/10;
+  @apply rounded-sm px-1;
 }
 
 /* 인라인 코드 스타일링 */
 .prose :not(pre) > code {
-  @apply px-1.5 py-1 rounded;
-  @apply bg-gray-100 dark:bg-gray-800;
-  @apply text-gray-900 dark:text-gray-100;
+  @apply px-1.5 py-1 rounded-sm;
+  @apply bg-neutral-100 dark:bg-neutral-800;
+  @apply text-neutral-900 dark:text-neutral-100;
   @apply text-[0.875em];
   font-family: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
-}
-
-/* 특정 문법 하이라이팅 */
-.prose .keyword {
-  @apply text-purple-400;
-}
-
-.prose .string {
-  @apply text-green-400;
-}
-
-.prose .function {
-  @apply text-blue-400;
-}
-
-.prose .comment {
-  @apply text-gray-500 italic;
-}
-
-/* 다크 모드 코드 블록 */
-.dark .prose pre {
-  @apply bg-gray-900;
 }

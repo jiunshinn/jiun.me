@@ -1,3 +1,4 @@
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
@@ -22,13 +23,14 @@ export default function RootLayout({
           h-full
           flex flex-col
           min-h-screen
-          bg-lightBg text-lightText
-          dark:bg-darkBg dark:text-darkText
+          font-sans
+          bg-white text-neutral-900
+          dark:bg-neutral-950 dark:text-neutral-100
         "
       >
         <Providers>
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="grow">{children}</main>
           <Footer />
         </Providers>
       </body>
