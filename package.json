@@ -7,13 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "covers": "node scripts/fetch-covers.ts"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.3.0",
     "date-fns": "^4.4.0",
+    "framer-motion": "^14.14.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.31.0",
     "next": "^16.3.0",
